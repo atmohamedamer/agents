@@ -26,7 +26,7 @@ graph TD
     G1 --> H1 --> I1
   end
 
-  subgraph Flutter Track
+  subgraph Frontend Track
     G2[Implementation]
     H2[Code Review]
     I2[QA & Testing]
