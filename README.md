@@ -4,7 +4,7 @@ Minimal, deterministic feature workflow. Every feature is a self-contained unit 
 Agents resolve repo locations/descriptions **only** from `.agents/config.json`.
 
 > [!CAUTION]
-> Experimental. Agents can consume large number of tokens (50k–100k tokens per run).
+> Experimental. Agents can consume large number of tokens (50k–100k tokens per agent).
 
 ## Install
 
