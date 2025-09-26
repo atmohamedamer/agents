@@ -7,28 +7,34 @@ Agents resolve repo locations/descriptions **only** from `.agents/config.json`.
 > Experimental. Agents can consume large number of tokens (50k–100k tokens per agent).
 
 ```mermaid
-flowchart LR
+graph TD
   %% Agentic SDLC — high-level flow
 
-  A[Start] --> B[Research] --> C[Architect] --> D[Design Review] --> E[API Design]
+  A[Start] --> B[Research]
+  B --> C[Architect]
+  C --> D[Design Review]
+  D --> E[API Design]
 
   %% Parallel tracks after API Design
   E --> G1
   E --> G2
 
   subgraph Backend Track
-    direction LR
-    G1[Implementation] --> H1[Backend Review] --> I1[Backend QA]
+    G1[Implementation]
+    H1[Code Review]
+    I1[QA & Testing]
+    G1 --> H1 --> I1
   end
 
   subgraph Flutter Track
-    direction LR
-    G2[Implementation] --> H2[Flutter Review] --> I2[Flutter QA]
+    G2[Implementation]
+    H2[Code Review]
+    I2[QA & Testing]
+    G2 --> H2 --> I2
   end
 
   I1 --> J[Closer: Apply changes to repositories]
   I2 --> J
-
 ```
 
 ## Install
@@ -80,20 +86,6 @@ Agents read repo roots/descriptions here; each `repos[].key` **must match** the 
 
 > [!TIP]
 > Bootstrap a feature with **`start: <feature> [links]`** (handled by the **starter** agent).
-
-## Flow (parallel implementation, per-track review & QA)
-
-```
-Starter → Research → Architect → Design Review → API Design
-                                                    ├─ Backend Impl → Backend Review → Backend QA
-                                                    └─ Flutter Impl → Flutter Review → Flutter QA
-                                                    ↓
-                                                    Closer (manual apply to repos)
-```
-
-* **Inputs**: previous stage folder(s) under `.agents/<feature>/…`
-* **Outputs**: current stage folder
-* **Changes**: staged files under `.agents/<feature>/changes/<repo-key>/` (not patches)
 
 ## Feature layout
 
