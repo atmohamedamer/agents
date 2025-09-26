@@ -6,6 +6,31 @@ Agents resolve repo locations/descriptions **only** from `.agents/config.json`.
 > [!CAUTION]
 > Experimental. Agents can consume large number of tokens (50k–100k tokens per agent).
 
+```mermaid
+flowchart LR
+  %% Agentic SDLC — high-level flow
+
+  A[Start] --> B[Research] --> C[Architect] --> D[Design Review] --> E[API Design]
+
+  %% Parallel tracks after API Design
+  E --> G1
+  E --> G2
+
+  subgraph Backend Track
+    direction LR
+    G1[Implementation] --> H1[Backend Review] --> I1[Backend QA]
+  end
+
+  subgraph Flutter Track
+    direction LR
+    G2[Implementation] --> H2[Flutter Review] --> I2[Flutter QA]
+  end
+
+  I1 --> J[Closer: Apply changes to repositories]
+  I2 --> J
+
+```
+
 ## Install
 
 Copy **once** into any workspace (skips if targets already exist; never overwrites). From your workspace, clone the repository and run:
@@ -56,6 +81,20 @@ Agents read repo roots/descriptions here; each `repos[].key` **must match** the 
 > [!TIP]
 > Bootstrap a feature with **`start: <feature> [links]`** (handled by the **starter** agent).
 
+## Flow (parallel implementation, per-track review & QA)
+
+```
+Starter → Research → Architect → Design Review → API Design
+                                                    ├─ Backend Impl → Backend Review → Backend QA
+                                                    └─ Flutter Impl → Flutter Review → Flutter QA
+                                                    ↓
+                                                    Closer (manual apply to repos)
+```
+
+* **Inputs**: previous stage folder(s) under `.agents/<feature>/…`
+* **Outputs**: current stage folder
+* **Changes**: staged files under `.agents/<feature>/changes/<repo-key>/` (not patches)
+
 ## Feature layout
 
 ```
@@ -79,20 +118,6 @@ Agents read repo roots/descriptions here; each `repos[].key` **must match** the 
     frontend/            # staged impl/tests targeting repo key "frontend"
   closer/                # closer logs (plan.json, apply-*.log, summary.md)
 ```
-
-## Flow (parallel implementation, per-track review & QA)
-
-```
-Starter → Research → Architect → Design Review → API Design
-                                                    ├─ Backend Impl → Backend Review → Backend QA
-                                                    └─ Flutter Impl → Flutter Review → Flutter QA
-                                                    ↓
-                                                    Closer (manual apply to repos)
-```
-
-* **Inputs**: previous stage folder(s) under `.agents/<feature>/…`
-* **Outputs**: current stage folder
-* **Changes**: staged files under `.agents/<feature>/changes/<repo-key>/` (not patches)
 
 ## Agents (current set)
 
