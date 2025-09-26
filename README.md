@@ -1,4 +1,4 @@
-# Opinionated Agentic SDLC
+# Agentic SDLC for Claude Code
 
 Minimal, deterministic feature workflow. Every feature is a self-contained unit under `.agents/<feature>/`.
 Agents resolve repo locations/descriptions **only** from `.agents/config.json`.
