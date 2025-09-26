@@ -87,7 +87,7 @@ Agents read repo roots/descriptions here; each `repos[].key` **must match** the 
 > [!TIP]
 > Bootstrap a feature with **`start: <feature> [links]`** (handled by the **starter** agent).
 
-> [!INFO]
+> [!NOTE]
 > A WIP log for all the features is referenced [here](https://github.com/atmohamedamer/agents-log)
 
 ## Feature layout
