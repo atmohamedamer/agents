@@ -1,30 +1,50 @@
 # Agentic SDLC for Claude Code
 
-Minimal, deterministic feature development workflow. Every feature is a self-contained unit under `.agents/<feature>/`.
-Agents resolve repo locations/descriptions **only** from `.agents/config.json`.
+Minimal, deterministic workflow for shipping features with AI agents. Each feature lives in its own folder under `.agents/<feature>/`. Agents read repo locations only from `.agents/config.json`, and write their outputs into the feature (and when appropriate, into your repos).
 
 > [!CAUTION]
 > Experimental. Agents can consume large contexts (50k–100k tokens per agent).
 
 ```mermaid
 flowchart LR
-  %% Agentic SDLC
-
   A[Plan] --> B[Research]
   B --> C[Architect]
-  C --> D[Design Review]
-  D --> E[API Design]
-
-  %% Parallel tracks after API Design
-  E --> BE[Backend Impl]
-  E --> FE[Flutter Impl]
-
+  C --> BE[Backend Impl]
+  C --> FE[Flutter Impl]
   BE --> BR[Backend Review]
   FE --> FR[Flutter Review]
-
   BR --> BQ[Backend Tester]
   FR --> FQ[Flutter Tester]
 ```
+
+## Why this exists
+
+* **Deterministic**: repeatable outputs, stable folder schema, idempotent merges.
+* **Portable**: works in any mono/multi-repo; repo roots resolved from a single JSON file.
+* **Separation of concerns**: planning, research, architecture, and implementation are distinct, reviewable artifacts.
+* **Feature capsules**: everything for a feature (brief, plans, specs, logs) is in one place.
+
+## At a glance
+
+```
+.agents/<feature>/
+  brief.md                 # you write this
+  ui/                      # you can also provide optional Figma exports
+  plan.md                  # plan agent writes/merges
+  research/                # researcher outputs
+  arch/                    # architect outputs
+  backend/                 # backend-engineer plan/runbook (code goes into repo)
+  flutter/                 # flutter-engineer plan/runbook (code goes into repo)
+  qa/backend/              # backend testing artifacts
+  qa/flutter/              # flutter testing artifacts
+  reviews/backend          # backend review notes & required deltas
+  reviews/flutter          # flutter review notes & required deltas
+  logs/                    # change logs from impl agents
+```
+
+## Template-driven outputs
+
+Agents render their files from templates under `.agents/.templates/`. Each artifact has a corresponding template for flexibility.
 
 ## Install
 
@@ -47,13 +67,10 @@ What it does:
 * Copies this repo’s **`.agents/` → `<workspace>/.agents/`**
 * Copies this repo’s **`agents/` → `<workspace>/.claude/agents/`**
 
-### Manual install (alternative)
-
-Copy `.agents/` to your workspace root, and `agents/` to `<workspace>/.claude/agents/`.
+> [!NOTE]
+> Alternative: copy `.agents/` to your workspace root, and `agents/` to `<workspace>/.claude/agents/`.
 
 ## Configure repos (`.agents/config.json`)
-
-Agents read repo roots/descriptions here; each `repos[].key` **must match** folders under `.agents/<feature>/changes/<key>/`.
 
 ```json
 {
@@ -74,43 +91,105 @@ Agents read repo roots/descriptions here; each `repos[].key` **must match** fold
 }
 ```
 
-> [!TIP]
-> Bootstrap your workflow with **`plan: <feature> [links]`**.
+* **Flexible**: add any repo types (`backend`, `app`, `design-system`, `marketing`, …).
+* **Single source of truth** for paths; agents won’t hardcode directories.
 
-## Feature layout
+## Quick start
 
-```
-.agents/<feature>/
-  brief.md               # user provided brief
-  plan.md                # created by the planner agent
-  ui/                    # Figma links/exports (optional)
-  research/              # researcher
-  arch/                  # architect
-  api/                  # api-designer (OpenAPI/SDL/JSON Schemas/fixtures)
-  backend/               # backend-engineer plan/runbook
-  flutter/               # flutter-engineer plan/runbook
-  qa/
-    backend/             # backend-qa plans/reports
-    flutter/             # flutter-qa plans/reports/goldens
-  reviews/               # backend-review.md, flutter-review.md, required-deltas.md
+> [!IMPORTANT]
+> Agents do **not** auto-invoke each other. You run each step explicitly.
+
+1. **Write a brief**
+
+```bash
+mkdir -p .agents/onboarding
+$EDITOR .agents/onboarding/brief.md
 ```
 
-## Agents (manual only)
+Example `brief.md`:
 
-* `plan` → creates feature (`plan.md`, folders)
-* `researcher` → `research/`
-* `architect` → `arch/`
-* `api-designer` → `apis/`
-* `backend-engineer` → `backend/`
-* `backend-reviewer` → `reviews/`
-* `backend-tester` → `qa/backend/`
-* `flutter-engineer` → `flutter/`
-* `flutter-reviewer` → `reviews/`
-* `flutter-tester` → `qa/flutter/`
+```md
+# Onboarding — Brief
+Goal: Create paid organizations. Owner selects seats and pays (Stripe web / IAP mobile).
+Non-goals: Trials, advanced seat mgmt, cancellation flows.
+Primary flow: Auth → Create Org → Select Plan & Seats → Pay → Verify → Provision → Invite → Done.
+...
+```
 
-## Rules
+2. **Plan**
 
-* Agents **must only** read repo roots from `.agents/config.json`; no hardcoded paths.
-* Install scripts **do not overwrite** existing folders; they skip if the destination exists.
-* Keep `changes/<key>/` folder names aligned with `repos[].key`.
-* Engineering/QA agents stage files exactly as they should appear in the real repos
+```text
+planner: onboarding
+```
+
+Produces `.agents/onboarding/plan.md`.
+
+3. **Research**
+
+```text
+researcher: onboarding
+```
+
+Produces `research/current-state.md`, `research/options.md`, `research/recommendation.md`.
+
+4. **Architect**
+
+```text
+architect: onboarding
+```
+
+Produces `arch/*` (architecture, structure tree, security/tenancy, telemetry/testing, implementation checklist).
+
+5. **Implementation**
+
+Coding agents read `.agents/config.json`, then write **directly into your repos** and log changes under `.agents/<feature>/logs/`.
+
+  ```text
+  backend-engineer: onboarding
+  flutter-engineer: onboarding
+  ```
+
+Produces `backend/*`, `flutter/*`, `logs/*` (plan, runbook, implementation notes)
+
+6. **Code Review**
+
+Review agents annotate findings and required changes. They may safe-apply deltas to repos.
+
+```text
+backend-reviewer: onboarding
+flutter-reviewer: onboarding
+```
+
+Produces `reviews/*` (findings, review notes, required deltas)
+
+7. **Code Testing**
+
+Test agents write plans and tests from a product/design perspective; where applicable they add tests to repos.
+
+```text
+backend-tester: onboarding
+flutter-tester: onboarding
+```
+
+Produces `qa/*` (test plan, defects, results)
+
+## FAQ
+
+**Q: Does this require a specific stack?**
+A: No, but defaults target Firebase (Functions + Firestore), Flutter (BloC), and optional GraphQL. You can adapt the agents or add new ones.
+
+**Q: Can I use only some agents?**
+A: Yes. They’re independent. Run only the stages you want; others remain empty.
+
+**Q: Does it run CI/CD or deploy?**
+A: No. This system focuses on planning/design/implementation artifacts. Pipelines are explicitly out of scope.
+
+**Q: How do agents find repos?**
+A: `.agents/config.json` is the **only** source. Update it once; all agents follow.
+
+## Tips
+
+* Keep `brief.md` short and sharp. Everything else derives from it.
+* Use features as **slugs**: `.agents/onboarding`, `.agents/people-directory`, etc.
+* Re-run agents after edits; merges are idempotent and won’t clobber your manual notes.
+* For code-writing agents, start in a throwaway branch the first time and review the change logs under `.agents/<feature>/logs/`.
