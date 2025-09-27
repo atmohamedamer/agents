@@ -1,6 +1,6 @@
 # {{FEATURE}} — Plan
 
-**Slug:** `{{SLUG}}`
+**Slug:** `{{SLUG}}`<br/>
 **Updated:** {{NOW_ISO}}
 
 ## 1) Summary

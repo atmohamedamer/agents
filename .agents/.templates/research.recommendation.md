@@ -1,30 +1,56 @@
 # {{FEATURE}} — Recommendation
 
-<!-- RSREC:CHOICE-BEGIN -->
-## Selected Option
+**Slug:** `{{SLUG}}`<br/>
+**Updated:** {{NOW_ISO}}
+
+> Final, defensible pick grounded in the Options matrix and code/plan constraints.
+
+## 1) Selected Option
 **Option:** <A/B/C> — <title>
-**Why:** Highest weighted score; best fit for HLD and security posture.
-<!-- RSREC:CHOICE-END -->
+**Score (from matrix):** <total/100>
+**Why now:** <1–2 sentences tying to user value / risk reduction>
 
-<!-- RSREC:RATIONALE-BEGIN -->
-## Rationale (high-signal)
-- **Security/Tenancy:** <why safest>
-- **HLD Fit:** <clean arch/BloC/Genkit alignment>
-- **Delivery:** <complexity, migrations, risks>
-- **Perf/Offline:** <budgets, retries/idempotency>
-- **Testability:** <fixtures/emulator/tests>
-<!-- RSREC:RATIONALE-END -->
+## 2) Rationale (mapped to criteria)
+- **Security & Tenancy (25):** <Rules/claims/App Check posture; cross-tenant guarantees>
+- **Fit to HLD (20):** <Clean Architecture, BloC MVVM, Genkit-behind-Functions alignment>
+- **Delivery Risk (15):** <complexity, unknowns, migration cost; why acceptable>
+- **Performance (10):** <p95/p99 outlook; index strategy; cold-start mitigation>
+- **Offline/Resilience (10):** <idempotency keys, retries/backoff, offline UX/conflicts>
+- **Testability (10):** <emulator coverage, fixtures/contracts, determinism>
+- **Cost/Scope (10):** <effort, blast radius, runtime/integrations>
 
-<!-- RSREC:IMPACTS-BEGIN -->
-## Impacts & Required Decisions
-- **Schema/index changes:** <list>
-- **Rules/claims updates:** <list>
-- **Quotas/entitlements:** <list>
+> Tie-breakers & assumptions: <brief bullet(s) if two options were close>
+
+## 3) Impacts & Required Decisions
+- **Schema/index changes:** <collections/fields; composite indexes to add>
+- **Security Rules/claims:** <new rules/conditions; custom claims propagation>
+- **Quotas/entitlements:** <plan gates, limits, enforcement points>
 - **Feature flags:** `<flag_name>` (<default>, owner)
-<!-- RSREC:IMPACTS-END -->
+- **Integrations:** <Stripe/IAP/other> — configs, webhooks, sandbox receipts
+- **Deprecations/migrations:** <any data or API deprecations + path>
 
-<!-- RSREC:NEXT-BEGIN -->
-## Handoff to Architect — Entry/Exit
-**Entry:** this doc + `current-state.md` + `options.md`  
-**Exit (Architect):** `arch/architecture.md`, `arch/structure.tree.md`, `arch/security-and-tenancy.md`, `arch/implementation-checklist.md`
-<!-- RSREC:NEXT-END -->
+## 4) Execution Guidance (high-signal)
+- **Backend (Functions/Rules):** <entrypoints, DTO heads, idempotency key, error taxonomy heads>
+- **Flutter (Routes/BloCs/Repos):** <screens, blocs, repo contracts, offline behavior>
+- **Genkit (if applicable):** <tools/flows, guardrails, input/output schemas>
+- **Indexes (must-have):** <list>
+- **Observability:** <logs/metrics/traces; correlation fields: traceId, orgId, feature, code>
+
+## 5) Rollout & Safeguards
+- **Phasing:** <dev → staging → 1% → 25% → 100% with health checks>
+- **Kill-switch:** `<flag_name>` disables <scope>
+- **Backout:** <how to revert Rules/indexes/contracts safely>
+- **Data safety:** <backfill, migration scripts, validation>
+
+## 6) Residual Risks & Mitigations
+| Risk | Impact | Likelihood | Mitigation |
+|---|---|---:|---|
+| <e.g., index bloat> | High | Med | pre-create composites; contract tests |
+| <…> | <…> | <…> | <…> |
+
+## 7) Open Questions
+1) <question> — **Owner:** <name> — **Due:** <date>
+2) <question> — **Owner:** <name> — **Due:** <date>
+
+## 9) References (top)
+{{TOP_REFS}}

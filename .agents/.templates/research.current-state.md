@@ -1,49 +1,81 @@
 # {{FEATURE}} — Current State
 
-<!-- RS:SUMMARY-BEGIN -->
-## Summary
-<What exists today in repos/process; what the brief and plan require.>
-<!-- RS:SUMMARY-END -->
+**Slug:** `{{SLUG}}`<br/>
+**Updated:** {{NOW_ISO}}
 
-<!-- RS:ARTIFACTS-BEGIN -->
-## Artifacts Considered
-- brief.md: <key points>
-- plan.md: <key constraints from PLAN:CONSTRAINTS/NFR/INTERFACES>
-- repos: <paths scanned>
-- HLD: <sections used>
-- external refs (if any): <links>
-<!-- RS:ARTIFACTS-END -->
+## 1) Summary
+<What exists today in code and configuration vs. what the brief/plan require. 3–6 sentences.>
+- **Key facts:** <bullets of the most material realities discovered in code/infra>
+- **Blocking gaps (high-level):** <bullets>
 
-<!-- RS:GAPS-BEGIN -->
-## Gaps vs. Target
-- **Data:** <schemas/collections/indexes missing>
-- **APIs:** <endpoints/callables/events missing>
-- **Security/Tenancy:** <rules, claims, app check gaps>
-- **Mobile/Web UX:** <flows/states/components missing>
-- **Observability:** <logs/metrics/traces missing>
-<!-- RS:GAPS-END -->
+**Design refs / UI links:** {{UI_LINKS}}
 
-<!-- RS:CONSTRAINTS-BEGIN -->
-## Hard Constraints (inherited)
-- Multi-tenant (`orgId` everywhere, rules deny cross-tenant).
-- Clean Architecture boundaries enforced.
-- Flutter MVVM with **BloC**.
-- Genkit flows only server-side via Functions; App Check enforced.
-- Quotas/entitlements tied to subscription state.
-<!-- RS:CONSTRAINTS-END -->
+## 2) Artifacts Considered
+- **Brief:** `.agents/{{SLUG}}/brief.md` — <1–2 key bullets>
+- **Plan:** `.agents/{{SLUG}}/plan.md` — <constraints/NFRs pulled>
+- **Repos (from config):**
+  {{REPO_MAP_TABLE}}
+- **Code scan highlights:** {{CODE_FINDINGS}}
+- **External references (top):** {{TOP_REFS}}
+- **Other internal:** <HLD sections / docs used>
 
-<!-- RS:NFR-BEGIN -->
-## NFR Targets (from plan)
-| Category | Target | Notes |
-|---|---|---|
-| Perf | p95 callable < 300ms | emulator parity |
-| Security | App Check, least privilege | no PII logs |
-| Tenancy | zero cross-org leakage | rules + guards |
-| Offline | mobile read-friendly | queued writes |
-| Observability | structured logs, codes | correlation ids |
-<!-- RS:NFR-END -->
+## 3) Code Map (today)
 
-<!-- RS:QUESTIONS-BEGIN -->
-## Open Questions
+### Backend (Firebase/TS)
+- **Entry points (HTTP/Callable):** <names + purpose>
+- **Collections & ownership:** <collection names, tenancy owner, notable subcollections>
+- **Security Rules coverage:** <what’s enforced; notable denies/allows; orgId checks>
+- **Indexes (present/missing):** <single/composite, suspected gaps>
+- **Idempotency & retries:** <patterns/keys observed>
+- **Observability:** <logs/metrics/traces, error codes taxonomy>
+- **App Check:** <enforced or missing paths>
+
+### Flutter (Dart)
+- **Routing (GoRouter):** <routes/guards>
+- **BloC boundaries:** <feature blocs, responsibilities>
+- **Repositories/DTOs:** <interfaces and data flow>
+- **Offline behavior:** <cached reads/queued writes>
+- **A11y states:** <loading/empty/error/offline/success coverage>
+- **Tests:** <widget/golden/integration coverage hotspots>
+
+## 4) Constraints & Assumptions (from Plan)
+- **Tenancy:** multi-tenant Firestore (`orgId` on all docs); deny cross-tenant at Rules and app layer.
+- **Architecture:** Clean Architecture (interface → service → domain → data); privileged writes server-side only.
+- **Client:** Flutter MVVM with **BloC**; GoRouter; reuse `uikit`.
+- **AI/Automation:** Genkit behind secure Cloud Functions; schema-validated IO.
+- **Security:** Firebase Auth + **App Check**; least-privilege Rules; no PII logs.
+- **Entitlements:** quotas/plan gates server-enforced; custom claims mirror essentials.
+
+## 5) Gaps vs. Target
+{{KEY_GAPS}}
+
+**Data**
+- Schemas missing/incorrect: <bullets>
+- Expected collections/fields: <bullets>
+
+**Interfaces**
+- Handlers/events required (not present): <bullets>
+- Contract diffs with plan expectations: <bullets>
+
+**Security/Tenancy**
+- Rules/claims/App Check gaps: <bullets>
+- Cross-tenant risks: <bullets>
+
+**UX**
+- Missing screens/flows/states: <bullets>
+- A11y/RTL gaps: <bullets>
+
+**Observability**
+- Missing logs/metrics/traces/codes: <bullets>
+
+
+## 6) NFR Targets (from Plan)
+| Category | Target | Current status | Hotspots / Notes |
+|---|---|---|---|
+| … | … | … | … |
+
+---
+
+## 7) Open Questions
 1) <question> — **Owner:** <name> — **Due:** <date>
-<!-- RS:QUESTIONS-END -->
+2) <question> — **Owner:** <name> — **Due:** <date>

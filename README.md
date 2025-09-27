@@ -23,6 +23,7 @@ flowchart LR
 * **Portable**: works in any mono/multi-repo; repo roots resolved from a single JSON file.
 * **Separation of concerns**: planning, research, architecture, and implementation are distinct, reviewable artifacts.
 * **Feature capsules**: everything for a feature (brief, plans, specs, logs) is in one place.
+* **Optimized**: template-driven rendering with templates stored outside agent prompts (`.agents/.templates/` and per-feature overrides) to minimize context size and token usage while keeping outputs consistent.
 
 ## At a glance
 
@@ -176,15 +177,19 @@ Produces `qa/*` (test plan, defects, results)
 ## FAQ
 
 **Q: Does this require a specific stack?**
+
 A: No, but defaults target Firebase (Functions + Firestore), Flutter (BloC), and optional GraphQL. You can adapt the agents or add new ones.
 
 **Q: Can I use only some agents?**
+
 A: Yes. They’re independent. Run only the stages you want; others remain empty.
 
-**Q: Does it run CI/CD or deploy?**
-A: No. This system focuses on planning/design/implementation artifacts. Pipelines are explicitly out of scope.
+**Q: Why not run all agents automatically?**
+
+A: The entire workflow requires hours to complete, there must be a human in the loop to validate each step and avoid burning tokens on wrong interpretations.
 
 **Q: How do agents find repos?**
+
 A: `.agents/config.json` is the **only** source. Update it once; all agents follow.
 
 ## Tips
