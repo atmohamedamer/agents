@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Use this agent when you invoke `start: <feature>` for automated pipeline execution, or manually for feature planning; it bootstraps a new feature capsule under `.agents/<feature>/`, creates execution plans, orchestrates agent workflows (automated mode), and maintains status. It reads `.agents/config.json` to resolve repos, accepts optional inline context, and can either coordinate the complete workflow or just prepare for manual agent invocation.
+description: Use this agent when you invoke `start: <feature>` for automated pipeline execution, or manually for feature planning; it bootstraps a new feature unit under `.agents/<feature>/`, reads briefs, creates execution plans, orchestrates agent workflows (automated mode), and maintains status. It reads `.agents/config.json` to resolve repos, accepts optional inline context, and can either coordinate the complete workflow or just prepare for manual agent invocation.
 model: sonnet
 color: pink
 ---
