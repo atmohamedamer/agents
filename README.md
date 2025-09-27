@@ -5,9 +5,6 @@
 **Streamlined, efficient feature workflow** with dual-mode operation. Every feature is a self-contained unit under `.agents/<feature>/`.
 Agents resolve repo locations/descriptions **only** from `.agents/config.json`.
 
-> [!NOTE]
-> **Optimized**: Reduced from 12 to 6 agents. Token consumption reduced 60-70%. Feature completion time: 15+ hours → <5 hours.
-
 ```mermaid
 graph TD
   %% Streamlined Agentic SDLC — dual-mode flow
@@ -84,7 +81,7 @@ Agents read repo roots/descriptions here for direct application of changes.
 }
 ```
 
-## Starting Features
+## Getting Started
 
 > [!TIP]
 > **Manual Mode**: `start: <feature> [links]` - Creates structure for manual agent execution
@@ -123,14 +120,6 @@ Agents read repo roots/descriptions here for direct application of changes.
 * `backend-tester` → backend testing & QA with fresh testing perspective
 * `flutter-engineer` → flutter implementation with direct repo application
 * `flutter-tester` → flutter testing & QA with fresh testing perspective
-
-### Key Improvements
-
-* **Direct Application**: Engineers apply changes directly to repos (no staging/closer complexity)
-* **Conditional API Designer**: Skipped for simple CRUD, invoked for complex business logic
-* **Separate Perspectives**: Implementation vs testing agents provide different viewpoints
-* **Real-time Status**: All agents update `plan.md` and `status.json` with progress
-* **Intelligent Selection**: Plan agent selects appropriate agents based on feature complexity
 
 ## Rules
 
