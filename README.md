@@ -6,32 +6,24 @@
 Agents resolve repo locations/descriptions **only** from `.agents/config.json`.
 
 ```mermaid
-graph TD
-  %% Streamlined Agentic SDLC — dual-mode flow
-
+graph LR
   A[Plan Agent] --> B{Mode}
-  B -->|Manual| C[Manual Execution]
-  B -->|Auto| D[Automated Pipeline]
+  B -->|Manual| M[Manual Execution]
+  B -->|Auto| P[Automated Pipeline]
 
-  D --> E[Research]
-  E --> F[Architect]
-  F --> G{Feature Complexity}
-  G -->|Complex| H[API Designer]
-  G -->|Simple CRUD| I1
-  H --> I1
+  M --> R[Research]
+  P --> R
+  R --> AR[Architect and Design]
 
-  subgraph Parallel Implementation
-    I1[Backend Engineer]
-    I2[Flutter Engineer]
-  end
+  AR --> C{Feature Complexity}
+  C -->|Complex| API[API Designer]
+  C -->|Simple| BE[Backend Engineer]
+  C -->|Simple| FE[Flutter Engineer]
+  API --> BE
+  API --> FE
 
-  I1 --> J1[Backend Tester]
-  I2 --> J2[Flutter Tester]
-
-  J1 --> K[Direct Repo Application]
-  J2 --> K
-
-  C --> E
+  BE --> BT[Backend QA]
+  FE --> FT[Flutter QA]
 ```
 
 ## Install
