@@ -13,8 +13,7 @@ The Agentic SDLC follows a structured pipeline from raw ideas to production-read
 
 ```mermaid
 flowchart LR
-    A[idea.md + UI exports] --> B[Ideator]
-    B --> D[Researcher]
+    C[Ideator] --> D[Researcher]
     D --> E[Product Owner]
     E --> F[Architect]
     F --> G[TPM]
@@ -124,7 +123,7 @@ The system includes specialized agents for each stage of the SDLC:
 
 ### Quick Install
 
-Run the installation script from the root of this repository:
+Clone the repository and run the installation script from the root of your workspace:
 
 **macOS / Linux**
 ```bash
@@ -226,9 +225,9 @@ Optionally add UI exports:
   signup-screen.png
 ```
 
-Then run the ideator agent:
+Then run the ideator agent from the claude CLI:
 ```text
-ideator: user-authentication
+@agents ideator: user-authentication
 ```
 
 The ideator will transform your raw ideas into a structured `brief.md` with clear goals, scope, and requirements.
@@ -236,7 +235,7 @@ The ideator will transform your raw ideas into a structured `brief.md` with clea
 #### 2. Research Phase
 
 ```text
-researcher: user-authentication
+@agents researcher: user-authentication
 ```
 
 **Outputs:**
@@ -248,7 +247,7 @@ researcher: user-authentication
 #### 3. Product Requirements
 
 ```text
-product-owner: user-authentication
+@agents product-owner: user-authentication
 ```
 
 **Outputs:**
@@ -257,7 +256,7 @@ product-owner: user-authentication
 #### 4. Architecture Design
 
 ```text
-architect: user-authentication
+@agents architect: user-authentication
 ```
 
 **Outputs:**
@@ -269,7 +268,7 @@ architect: user-authentication
 #### 5. Technical Planning
 
 ```text
-tpm: user-authentication
+@agents tpm: user-authentication
 ```
 
 **Outputs:**
@@ -281,9 +280,9 @@ tpm: user-authentication
 Define test specifications before implementation:
 
 ```text
-ui-tester: user-authentication
-flutter-tester: user-authentication
-backend-tester: user-authentication
+@agents ui-tester: user-authentication
+@agents flutter-tester: user-authentication
+@agents backend-tester: user-authentication
 ```
 
 **Outputs:**
@@ -296,9 +295,9 @@ backend-tester: user-authentication
 Implement the feature across all layers (code written to repos):
 
 ```text
-ui-developer: user-authentication
-flutter-developer: user-authentication
-backend-developer: user-authentication
+@agents ui-developer: user-authentication
+@agents flutter-developer: user-authentication
+@agents backend-developer: user-authentication
 ```
 
 **Outputs:**
@@ -312,9 +311,9 @@ backend-developer: user-authentication
 Review implemented code for quality and standards:
 
 ```text
-ui-reviewer: user-authentication
-flutter-reviewer: user-authentication
-backend-reviewer: user-authentication
+@agents ui-reviewer: user-authentication
+@agents flutter-reviewer: user-authentication
+@agents backend-reviewer: user-authentication
 ```
 
 **Outputs:**
