@@ -1,3 +1,0 @@
-# Example Feature
-
-This is a **demo capsule** to show humans and agents how a real feature capsule should look and flow; do **not** ship or apply to live repos. Treat this as a dry-run—read repo roots from `.agents/config.json`, write all artifacts to `.agents/example/*`, and stage any code/test files under `.agents/example/changes/<repo-key>/` exactly as they would appear in the target repo (no external writes). Scope: a trivial “Hello Analytics” slice (one backend read endpoint + one Flutter screen) sufficient to produce every artifact type. Success: each stage emits its required files in the correct subfolders, reviewers produce decisions in `reviews/`, QA produces reports in `qa/*/`, and both implementation tracks complete without touching real repos.
