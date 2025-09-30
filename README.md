@@ -86,6 +86,7 @@ Each feature is self-contained in `.agents/<feature>/` with outputs matching the
     flows.md                  # Architect output: data/control flows
     security.md               # Architect output: security model
     telemetry.md              # Architect output: logging/monitoring
+    prerequisites.md          # Architect output: user setup tasks before implementation
 
   implementation-plan.md      # TPM output: task breakdown
   test-plan.md                # TPM output: testing strategy
@@ -121,7 +122,7 @@ The system includes specialized agents for each stage of the SDLC. Agents are co
 - **`tpm`** (Technical Program Manager) - Creates implementation plans and test specifications
 
 ### Architecture (green)
-- **`architect`** - Designs system architecture, data flows, security, and telemetry
+- **`architect`** - Designs system architecture, data flows, security, telemetry, and generates prerequisites document with manual setup tasks
 
 ### Testing (yellow)
 - **`ui-tester`** - Defines test specifications for design system components
@@ -299,6 +300,10 @@ The ideator will transform your raw ideas into a structured `brief.md` with clea
 - `arch/flows.md` - Data flows and control flows
 - `arch/security.md` - Security model and token management
 - `arch/telemetry.md` - Logging, monitoring, and observability
+- `arch/prerequisites.md` - **USER ACTION REQUIRED**: Manual setup tasks (Firebase Console, OAuth apps, secrets, etc.)
+
+> [!IMPORTANT]
+> Review `prerequisites.md` and complete all setup tasks before proceeding to implementation. This includes Firebase Console configurations, OAuth app setup, environment variables, and external service integrations.
 
 #### 6. Technical Planning
 
