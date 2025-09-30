@@ -25,7 +25,7 @@ flowchart LR
 ### Pipeline Stages
 
 1. **Ideation** → `ideator` transforms scattered ideas in `idea.md` (+ optional UI exports) into a structured `brief.md`
-2. **Research** → `researcher` analyzes current state, evaluates options, and recommends technical approach
+2. **Research** → `researcher` analyzes current state, identifies constraints, explores implementation options, and recommends technical approach
 3. **Product Requirements** → `product-owner` creates user stories, acceptance criteria, and defines scope
 4. **Architecture** → `architect` designs system architecture, data flows, security, and telemetry
 5. **Planning** → `tpm` (Technical Program Manager) creates implementation plan with task breakdown
@@ -60,6 +60,7 @@ Each feature is self-contained in `.agents/<feature>/` with outputs matching the
     constraints.md            # Researcher output: technical constraints
     web-sources.md            # Researcher output: relevant documentation/articles
     risks.md                  # Researcher output: identified risks
+    recommendation.md         # Researcher output: implementation options and recommendation
 
   product-requirements.md     # Product Owner output
 
@@ -90,28 +91,30 @@ Each feature is self-contained in `.agents/<feature>/` with outputs matching the
 
 ## Available Agents
 
-The system includes specialized agents for each stage of the SDLC:
+The system includes specialized agents for each stage of the SDLC. Agents are color-coded by phase for easy identification:
 
-### Planning & Discovery
+### Discovery (cyan)
 - **`ideator`** - Transforms raw ideas into structured feature briefs
-- **`researcher`** - Analyzes current state, identifies constraints, and evaluates technical options
-- **`product-owner`** - Creates detailed product requirements with user stories and acceptance criteria
+- **`researcher`** - Analyzes current state, identifies constraints, explores implementation options (≥3), and provides recommendation
 
-### Architecture & Design
-- **`architect`** - Designs system architecture, data flows, security, and telemetry
+### Product/Project Management (purple)
+- **`product-owner`** - Creates detailed product requirements with user stories and acceptance criteria
 - **`tpm`** (Technical Program Manager) - Creates implementation plans and test specifications
 
-### Testing (TDD)
+### Architecture (green)
+- **`architect`** - Designs system architecture, data flows, security, and telemetry
+
+### Testing (yellow)
 - **`ui-tester`** - Defines test specifications for design system components
 - **`flutter-tester`** - Defines test specifications for Flutter application
 - **`backend-tester`** - Defines test specifications for backend services
 
-### Implementation
+### Development (orange)
 - **`ui-developer`** - Implements design system components
 - **`flutter-developer`** - Implements Flutter application features
 - **`backend-developer`** - Implements backend services and APIs
 
-### Quality Assurance
+### Review (red)
 - **`ui-reviewer`** - Reviews design system code for quality and standards
 - **`flutter-reviewer`** - Reviews Flutter code for quality and standards
 - **`backend-reviewer`** - Reviews backend code for quality and standards
@@ -243,6 +246,7 @@ The ideator will transform your raw ideas into a structured `brief.md` with clea
 - `research/constraints.md` - Technical and business constraints
 - `research/web-sources.md` - Relevant documentation and articles
 - `research/risks.md` - Identified risks and mitigations
+- `research/recommendation.md` - Implementation options (≥3) and recommendation
 
 #### 3. Product Requirements
 
