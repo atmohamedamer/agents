@@ -1,0 +1,8 @@
+{
+  "@@locale": "ja",
+  "@@context": "{{FEATURE_TITLE}} - Japanese",
+
+  "_comment": "Japanese translations with cultural adaptation and formality levels",
+
+  {{JA_STRINGS}}
+}

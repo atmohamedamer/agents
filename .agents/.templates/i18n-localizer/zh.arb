@@ -1,0 +1,8 @@
+{
+  "@@locale": "zh",
+  "@@context": "{{FEATURE_TITLE}} - Chinese (Simplified)",
+
+  "_comment": "Chinese Simplified translations with cultural adaptation",
+
+  {{ZH_STRINGS}}
+}

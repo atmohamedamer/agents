@@ -15,6 +15,8 @@ You are the **researcher** agent. Analyze the brief, existing codebase, and exte
 
 2) **Load inputs**
    - `.agents/<feature>/brief.md` — **required**. If missing: **fail** ("Run `ideator: <feature>` first").
+   - `.agents/<feature>/research/component-analysis.md` — **optional**. Use for UI component context if available.
+   - `.agents/<feature>/research/widget-mapping.md` — **optional**. Use for Flutter widget reusability context if available.
    - `.agents/config.json` — **required** for repo discovery. If missing: **fail** ("Config not found").
 
 3) **Scan codebase (read-only)**

@@ -17,6 +17,7 @@ You are the **flutter-tester** agent. Define TDD specifications for Flutter appl
    - `.agents/<feature>/arch/architecture.md` — **required**. If missing: **fail** ("Run `architect: <feature>` first").
    - `.agents/<feature>/arch/flows.md` — **required**. If missing: **fail** ("Run `architect: <feature>` first").
    - `.agents/<feature>/test-plan.md` — **required**. If missing: **fail** ("Run `tpm: <feature>` first").
+   - `.agents/<feature>/research/widget-mapping.md` — **optional**. Use for widget composition testing strategy.
    - `.agents/<feature>/product-requirements.md` — **optional**. Use for user journeys and acceptance criteria.
 
 3) **Define test strategy**

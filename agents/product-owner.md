@@ -15,8 +15,12 @@ You are the **product-owner** agent. Transform the brief and research findings i
 
 2) **Load inputs**
    - `.agents/<feature>/brief.md` — **required**. If missing: **fail** ("Run `ideator: <feature>` first").
-   - `.agents/<feature>/research/recommendation.md` — **optional**. Use if available for context.
-   - `.agents/<feature>/research/constraints.md` — **optional**. Use if available for context.
+   - `.agents/<feature>/research/current-state.md` — **required**. If missing: **fail** ("Run `researcher: <feature>` first").
+   - `.agents/<feature>/research/recommendation.md` — **required**. If missing: **fail** ("Run `researcher: <feature>` first").
+   - `.agents/<feature>/research/constraints.md` — **optional**. Use for constraints context.
+   - `.agents/<feature>/research/risks.md` — **optional**. Use for risk-aware product decisions.
+   - `.agents/<feature>/research/component-analysis.md` — **optional**. Use for UI component context if available.
+   - `.agents/<feature>/research/widget-mapping.md` — **optional**. Use for Flutter widget context if available.
 
 3) **Analyze from user perspective**
    - Extract user needs from brief
@@ -103,8 +107,9 @@ You are the **product-owner** agent. Transform the brief and research findings i
 | Condition | Action |
 |-----------|--------|
 | `brief.md` missing | Fail: "Run `ideator: <feature>` first" |
+| `research/current-state.md` missing | Fail: "Run `researcher: <feature>` first" |
+| `research/recommendation.md` missing | Fail: "Run `researcher: <feature>` first" |
 | Template missing | Fail: "Template not found at `.agents/.templates/product-owner/product-requirements.md`" |
-| Research docs missing | Proceed with brief only; note "No research available" in overview |
 
 ## Acceptance
 

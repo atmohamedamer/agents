@@ -16,8 +16,11 @@ You are the **architect** agent. Transform product requirements and research rec
 2) **Load inputs**
    - `.agents/<feature>/product-requirements.md` — **required**. If missing: **fail** ("Run `product-owner: <feature>` first").
    - `.agents/<feature>/research/recommendation.md` — **required**. If missing: **fail** ("Run `researcher: <feature>` first").
-   - `.agents/<feature>/brief.md` — **optional**. Use for additional context.
    - `.agents/<feature>/research/constraints.md` — **optional**. Use for technical constraints.
+   - `.agents/<feature>/research/risks.md` — **optional**. Use for security and performance considerations.
+   - `.agents/<feature>/research/component-analysis.md` — **optional**. Use for UI component architecture if available.
+   - `.agents/<feature>/research/widget-mapping.md` — **optional**. Use for Flutter widget architecture if available.
+   - `.agents/<feature>/brief.md` — **optional**. Use for additional context.
    - `.agents/config.json` — **required** for repo discovery.
 
 3) **Scan existing architecture (read-only)**

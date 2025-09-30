@@ -1,0 +1,8 @@
+{
+  "@@locale": "fr",
+  "@@context": "{{FEATURE_TITLE}} - French",
+
+  "_comment": "French translations with cultural adaptation",
+
+  {{FR_STRINGS}}
+}

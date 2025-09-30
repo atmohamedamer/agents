@@ -1,0 +1,8 @@
+{
+  "@@locale": "es",
+  "@@context": "{{FEATURE_TITLE}} - Spanish",
+
+  "_comment": "Spanish translations with cultural adaptation",
+
+  {{ES_STRINGS}}
+}

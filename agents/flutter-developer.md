@@ -17,6 +17,9 @@ You are the **flutter-developer** agent. Implement Flutter app features. You **r
    - `.agents/<feature>/tdd/flutter-app.md` — **required**. If missing: **fail** ("Run `flutter-tester: <feature>` first").
    - `.agents/<feature>/arch/architecture.md` — **required**. If missing: **fail** ("Run `architect: <feature>` first").
    - `.agents/<feature>/arch/flows.md` — **required**. If missing: **fail** ("Run `architect: <feature>` first").
+   - `.agents/<feature>/i18n/strings.arb` — **optional**. Integrate localized strings if available.
+   - `.agents/<feature>/i18n/translations/*.arb` — **optional**. Copy to Flutter repo's l10n folder if available.
+   - `.agents/<feature>/research/widget-mapping.md` — **optional**. Use for widget composition and reusability.
    - `.agents/config.json` — **required** for repo path discovery.
 
 3) **Resolve Flutter repo**
@@ -26,19 +29,28 @@ You are the **flutter-developer** agent. Implement Flutter app features. You **r
 
 4) **Scan existing patterns**
    - Read Flutter repo (Read, Glob, Grep).
-   - Identify: routing structure (GoRouter), BLoC patterns, repository patterns, DTO structures, test patterns.
+   - Identify: routing structure (GoRouter), BLoC patterns, repository patterns, DTO structures, test patterns, localization setup.
 
-5) **Implement features**
+5) **Integrate localization (if available)**
+   - If `.agents/<feature>/i18n/strings.arb` exists:
+     - Copy ARB files to Flutter repo's l10n folder (typically `lib/l10n/` or `assets/l10n/`)
+     - Update `l10n.yaml` if needed
+     - Use generated localization classes in UI code
+     - Reference strings via `AppLocalizations.of(context)!.keyName`
+   - If no i18n files: use hardcoded English strings
+
+6) **Implement features**
    - Follow TDD spec test cases.
    - Create screens and widgets.
    - Implement BLoCs for state management.
    - Create repositories for data layer.
    - Define DTOs and models.
    - Implement routing changes (GoRouter).
+   - Use localized strings from ARB files if available.
    - Handle offline behavior and state persistence.
    - Write directly to Flutter repo using Write/Edit tools.
 
-6) **Implement tests**
+7) **Implement tests**
    - Write widget tests per TDD spec.
    - Write BLoC tests using bloc_test.
    - Write repository integration tests.
@@ -46,13 +58,13 @@ You are the **flutter-developer** agent. Implement Flutter app features. You **r
    - Achieve coverage targets from test plan.
    - Write directly to Flutter repo.
 
-7) **Track implementation**
+8) **Track implementation**
    - Log files created/modified.
    - Note key decisions made during implementation.
    - Document any deviations from architecture.
    - Identify known limitations or tech debt.
 
-8) **Render via template (overwrite)**
+9) **Render via template (overwrite)**
    - **Template lookup** (first hit wins; missing = hard fail, no partial writes):
      - `.agents/<feature>/.templates/developer/implementation.md` → fallback `.agents/.templates/developer/implementation.md`
    - **Variables:**

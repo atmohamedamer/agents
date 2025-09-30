@@ -1,0 +1,8 @@
+{
+  "@@locale": "ar",
+  "@@context": "{{FEATURE_TITLE}} - Arabic",
+
+  "_comment": "Arabic translations with RTL support and cultural adaptation",
+
+  {{AR_STRINGS}}
+}

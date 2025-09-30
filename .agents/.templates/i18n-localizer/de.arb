@@ -1,0 +1,8 @@
+{
+  "@@locale": "de",
+  "@@context": "{{FEATURE_TITLE}} - German",
+
+  "_comment": "German translations with cultural adaptation",
+
+  {{DE_STRINGS}}
+}

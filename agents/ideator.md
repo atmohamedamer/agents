@@ -43,7 +43,7 @@ You are the **ideator** agent. Transform scattered ideas from `idea.md` into a s
 
 5) **Stop**
    - No orchestration; no repo writes; no status/log files.
-   - Suggest: `researcher: <feature>`
+   - Suggest: `ui-ux-researcher: <feature>` (if UI/UX components involved) or `researcher: <feature>` (if backend-only)
 
 ## Constraints
 

@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+  "@@context": "{{FEATURE_TITLE}}",
+
+  "_comment_metadata": "Base English strings with metadata for Flutter localization",
+
+  {{BASE_STRINGS}}
+}
