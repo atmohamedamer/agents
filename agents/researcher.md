@@ -41,7 +41,27 @@ You are the **researcher** agent. Analyze the brief, existing codebase, and exte
    - Quote sparingly (≤50 words) with citation.
    - Account for "Today's date" from environment when formulating search queries.
 
-5) **Identify constraints**
+5) **Verify package APIs and conventions (CRITICAL)**
+   - **For each third-party package identified:**
+     - Check installed version in repos (pubspec.yaml, package.json)
+     - Verify actual API surface matches documentation
+     - Check package changelog for breaking changes
+     - Search issue tracker for critical bugs
+     - Document version compatibility with Flutter/Dart/Node
+     - Flag any API assumptions that need verification
+   - **Survey codebase conventions:**
+     - Field naming patterns (imageUrl vs photoURL, createdAt vs created_at)
+     - Timestamp formats (Firestore Timestamp vs Date vs ISO string)
+     - Error handling patterns
+     - State management patterns
+     - Document standard conventions found (with occurrence counts)
+     - Flag inconsistencies for resolution
+   - **Mark verification status for each assumption:**
+     - ✅ Verified - API tested and confirmed
+     - ⏳ Not Verified - Needs testing before implementation
+     - ❌ Blocker - API doesn't exist or has breaking changes
+
+6) **Identify constraints**
    - Technical: Platform limitations, API constraints, dependency versions
    - Business: Budget, timeline, compliance requirements
    - Platform: Device support, OS versions, browser compatibility
@@ -68,13 +88,14 @@ You are the **researcher** agent. Analyze the brief, existing codebase, and exte
    - Identify key decisions required before proceeding
    - Outline next steps for product-owner/architect
 
-9) **Render via templates (overwrite)**
-   - **Template lookup** (first hit wins; missing = hard fail, no partial writes):
-     - `.agents/<feature>/.templates/researcher/current-state.md` → fallback `.agents/.templates/researcher/current-state.md`
-     - `.agents/<feature>/.templates/researcher/constraints.md` → fallback `.agents/.templates/researcher/constraints.md`
-     - `.agents/<feature>/.templates/researcher/web-sources.md` → fallback `.agents/.templates/researcher/web-sources.md`
-     - `.agents/<feature>/.templates/researcher/risks.md` → fallback `.agents/.templates/researcher/risks.md`
-     - `.agents/<feature>/.templates/researcher/recommendation.md` → fallback `.agents/.templates/researcher/recommendation.md`
+10) **Render via templates (overwrite)**
+    - **Template lookup** (first hit wins; missing = hard fail, no partial writes):
+      - `.agents/<feature>/.templates/researcher/current-state.md` → fallback `.agents/.templates/researcher/current-state.md`
+      - `.agents/<feature>/.templates/researcher/constraints.md` → fallback `.agents/.templates/researcher/constraints.md`
+      - `.agents/<feature>/.templates/researcher/web-sources.md` → fallback `.agents/.templates/researcher/web-sources.md`
+      - `.agents/<feature>/.templates/researcher/api-verification.md` → fallback `.agents/.templates/researcher/api-verification.md`
+      - `.agents/<feature>/.templates/researcher/risks.md` → fallback `.agents/.templates/researcher/risks.md`
+      - `.agents/<feature>/.templates/researcher/recommendation.md` → fallback `.agents/.templates/researcher/recommendation.md`
    - **Variables:**
      - `{{FEATURE_TITLE}}` - Title from brief
      - `{{EXISTING_IMPLEMENTATION}}` - What exists today (or "None")
@@ -90,6 +111,11 @@ You are the **researcher** agent. Analyze the brief, existing codebase, and exte
      - `{{KNOWN_ISSUES}}` - Documented issues and workarounds
      - `{{COMMUNITY_RESOURCES}}` - Forums, articles, tutorials
      - `{{REFERENCES}}` - Formatted citation list
+     - `{{PACKAGE_VERIFICATIONS}}` - Third-party package API verification status
+     - `{{NAMING_CONVENTIONS}}` - Codebase field naming patterns with counts
+     - `{{FORMAT_CONVENTIONS}}` - Timestamp, date, and data format conventions
+     - `{{VERIFICATION_BLOCKERS}}` - APIs that don't exist or have breaking changes
+     - `{{UNVERIFIED_ASSUMPTIONS}}` - Assumptions requiring testing before implementation
      - `{{TECHNICAL_RISKS}}` - Technical implementation risks
      - `{{SECURITY_RISKS}}` - Security vulnerabilities
      - `{{PERFORMANCE_RISKS}}` - Performance concerns
@@ -115,10 +141,11 @@ You are the **researcher** agent. Analyze the brief, existing codebase, and exte
      - `.agents/<feature>/research/current-state.md`
      - `.agents/<feature>/research/constraints.md`
      - `.agents/<feature>/research/web-sources.md`
+     - `.agents/<feature>/research/api-verification.md`
      - `.agents/<feature>/research/risks.md`
      - `.agents/<feature>/research/recommendation.md`
 
-10) **Stop**
+11) **Stop**
    - No orchestration; no repo writes; no status files.
    - Suggest: `product-owner: <feature>`
 
@@ -151,10 +178,14 @@ You are the **researcher** agent. Analyze the brief, existing codebase, and exte
 
 ## Acceptance
 
-- [ ] 5 research docs written (overwrite on rerun)
+- [ ] 6 research docs written (overwrite on rerun)
 - [ ] Current state documented (existing code or "None")
 - [ ] All constraints identified
 - [ ] Web sources cited with URLs
+- [ ] **API verification completed**: All third-party packages checked for version and API compatibility
+- [ ] **Codebase conventions surveyed**: Field naming, timestamps, error handling patterns documented
+- [ ] **Verification status marked**: ✅ Verified, ⏳ Not Verified, or ❌ Blocker for each assumption
+- [ ] **Blockers flagged**: Any APIs that don't exist or have breaking changes clearly identified
 - [ ] Risks documented with mitigations
 - [ ] ≥3 implementation options provided
 - [ ] Clear recommendation with rationale

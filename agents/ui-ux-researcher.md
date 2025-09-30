@@ -43,25 +43,45 @@ You are the **ui-ux-researcher** agent. Evaluate feature UI/UX needs, review exi
    - Identify widget wrappers around design system components.
    - Note reusable patterns: layouts, compositions, state management.
 
-7) **Map requirements to existing components**
-   - Match feature UI needs to existing design system components.
-   - Match feature UI needs to existing Flutter widgets.
-   - Identify exact matches (reuse as-is).
-   - Identify partial matches (extend or configure existing).
-   - Identify gaps (need new components).
+7) **Verify widget APIs (CRITICAL - DO NOT SKIP)**
+   - **For design system package:**
+     - List all actual exports (grep "export" in main library file)
+     - For each widget identified in audit, verify:
+       - Exact class name (case-sensitive)
+       - Required parameters with types
+       - Optional parameters with types
+       - Default values
+     - Mark widgets as ✅ Verified, ⏳ Not Found, or ❌ Breaking Changes
+   - **For Flutter widgets:**
+     - Check actual widget constructors in codebase
+     - Verify parameter names match common patterns
+     - Document any custom widget APIs
+   - **Document missing widgets:**
+     - Widgets assumed but not found in packages
+     - Alternative widget options
+     - Recommendation: create new vs find alternative vs ask user
 
-8) **Identify duplication risks**
+8) **Map requirements to existing components**
+   - Match feature UI needs to VERIFIED design system components only
+   - Match feature UI needs to VERIFIED Flutter widgets only
+   - Identify exact matches (reuse as-is)
+   - Identify partial matches (extend or configure existing)
+   - Identify gaps (need new components)
+   - **DO NOT map to unverified widgets** - mark as "needs verification" instead
+
+9) **Identify duplication risks**
    - Flag any proposed components that duplicate existing ones.
    - Recommend consolidation or extension of existing components.
    - Suggest refactoring opportunities to improve reusability.
 
-9) **Recommend reusable widgets**
-   - Propose Flutter widget wrappers for design system components.
-   - Suggest composition patterns to combine existing widgets.
-   - Identify opportunities to extract reusable widgets from feature.
-   - Recommend widget API design for maximum reusability.
+10) **Recommend reusable widgets**
+    - Propose Flutter widget wrappers for VERIFIED design system components only
+    - Suggest composition patterns to combine existing widgets
+    - Identify opportunities to extract reusable widgets from feature
+    - Recommend widget API design for maximum reusability
+    - **Flag blockers**: Widgets that must be verified or created before implementation
 
-10) **Render via templates (overwrite)**
+11) **Render via templates (overwrite)**
     - **Template lookup** (first hit wins; missing = hard fail, no partial writes):
       - `.agents/<feature>/.templates/ui-ux-researcher/component-analysis.md` → fallback `.agents/.templates/ui-ux-researcher/component-analysis.md`
       - `.agents/<feature>/.templates/ui-ux-researcher/widget-mapping.md` → fallback `.agents/.templates/ui-ux-researcher/widget-mapping.md`
@@ -81,11 +101,14 @@ You are the **ui-ux-researcher** agent. Evaluate feature UI/UX needs, review exi
       - `{{COMPOSITION_PATTERNS}}` - Patterns to combine existing widgets
       - `{{REUSABLE_EXTRACTIONS}}` - Widgets to extract for reusability
       - `{{WIDGET_API_RECOMMENDATIONS}}` - API design for new widgets
+      - `{{WIDGET_VERIFICATIONS}}` - Widget API verification status (✅ Verified, ⏳ Not Found, ❌ Breaking)
+      - `{{MISSING_WIDGETS}}` - Widgets assumed but not found
+      - `{{VERIFICATION_BLOCKERS}}` - Widgets that must be verified before implementation
     - **Write (overwrite):**
       - `.agents/<feature>/research/component-analysis.md`
       - `.agents/<feature>/research/widget-mapping.md`
 
-11) **Stop**
+12) **Stop**
     - No orchestration; no repo writes; no status files.
     - Suggest: `researcher: <feature>` (continue with technical research)
 

@@ -1,9 +1,27 @@
 # Flutter Widget Mapping — {{FEATURE_TITLE}}
 
-## Reuse As-Is
+## Widget Verification Status
+
+{{WIDGET_VERIFICATIONS}}
+
+---
+
+## Missing Widgets
+
+{{MISSING_WIDGETS}}
+
+---
+
+## ⚠️ Verification Blockers
+
+{{VERIFICATION_BLOCKERS}}
+
+---
+
+## Reuse As-Is (Verified Only)
 {{REUSE_AS_IS}}
 
-## Extend Existing
+## Extend Existing (Verified Only)
 {{EXTEND_EXISTING}}
 
 ## New Components Needed

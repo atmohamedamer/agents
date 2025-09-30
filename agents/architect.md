@@ -34,7 +34,27 @@ You are the **architect** agent. Transform product requirements and research rec
      - Security implementations
      - Logging/monitoring patterns
 
-4) **Design system architecture**
+4) **Survey codebase conventions (CRITICAL - before designing schemas)**
+   - **Field naming standards:**
+     - Search for common field patterns: imageUrl vs photoURL vs image_url
+     - Search for timestamp patterns: createdAt vs created_at vs createTime
+     - Search for ID patterns: userId vs user_id vs uid
+     - Document most common convention with occurrence counts
+     - Flag inconsistencies for resolution
+   - **Data format standards:**
+     - Firestore Timestamp vs Date vs ISO string for timestamps
+     - Boolean naming: isActive vs active vs enabled
+     - Array vs Map for collections
+   - **API patterns:**
+     - REST endpoint naming conventions
+     - Request/response payload structures
+     - Error response formats
+   - **Read API verification output:**
+     - Check `.agents/<feature>/research/api-verification.md` for package compatibility issues
+     - Incorporate verified naming conventions into design
+     - Flag any breaking changes that affect architecture
+
+5) **Design system architecture**
    - System overview: high-level component diagram with **mermaid diagram**
    - Component breakdown: responsibilities, boundaries, interfaces
    - Data models: entities, relationships, schemas (Firestore collections, document structure) with **mermaid ER diagram**
